@@ -10,17 +10,21 @@ async function getRecipeDetails(id: string) {
   if (!res.ok) throw new Error('Failed to fetch recipe details');
   return res.json();
 }
+
 interface RecipeDetailPageProps {
   params: { id: string };
 }
 
 export default async function RecipeDetailPage({ params }: RecipeDetailPageProps) {
-  const recipe = await getRecipeDetails(params.id);
+
+  const { id } = await params;
+
+  const recipe = await getRecipeDetails(id);
 
   return (
     <main className="min-h-screen p-8 bg-white text-black max-w-3xl mx-auto">
       <Link href="/recipes" className="text-blue-600 hover:underline mb-4 inline-block">
-         ← Back to results
+        ← Back to results
       </Link>
       <h1 className="text-3xl font-bold mb-4">{recipe.title}</h1>
 

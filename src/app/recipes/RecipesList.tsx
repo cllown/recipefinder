@@ -21,7 +21,9 @@ async function getRecipes(searchParams: any) {
 }
 
 export default async function RecipesList({ searchParams }: { searchParams: any }) {
-  const data = await getRecipes(searchParams);
+  const params = await searchParams;
+
+  const data = await getRecipes(params);
   const recipes = data.results || [];
 
   if (!recipes.length) {
