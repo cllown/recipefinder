@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-
 async function getRecipeDetails(id: string) {
   const apiKey = process.env.SPOONACULAR_API_KEY;
   const res = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`, {
@@ -11,12 +10,14 @@ async function getRecipeDetails(id: string) {
   if (!res.ok) throw new Error('Failed to fetch recipe details');
   return res.json();
 }
+interface RecipeDetailPageProps {
+  params: { id: string };
+}
 
-export default async function RecipeDetailPage({ params }: { params: { id: string } }) {
+export default async function RecipeDetailPage({ params }: RecipeDetailPageProps) {
   const recipe = await getRecipeDetails(params.id);
 
   return (
-   
     <main className="min-h-screen p-8 bg-white text-black max-w-3xl mx-auto">
       <Link href="/recipes" className="text-blue-600 hover:underline mb-4 inline-block">
          ← Back to results
